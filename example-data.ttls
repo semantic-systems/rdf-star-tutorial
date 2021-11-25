@@ -1,0 +1,126 @@
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix  rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix  ore: <http://www.openarchives.org/ore/terms/> .
+@prefix  ens: <http://www.europeana.eu/schemas/edm/> .
+@prefix  ahm: <http://purl.org/collections/nl/am/> .
+@prefix  ex: <http://example.org/> .
+
+
+
+<<ahm:proxy-16987 rdf:type ex:ImportantObject>> ex:accordingTo ex:Victor  .
+<<ahm:proxy-16988 rdf:type ex:UnImportantObject>> ex:accordingTo ex:Victor  .
+<<ahm:proxy-16989 rdf:type ex:UnImportantObject>> ex:accordingTo ex:Victor  .
+<<ahm:proxy-16988 rdf:type ex:ImportantObject>> ex:accordingTo ex:Ilaria  .
+
+<< <<ahm:proxy-16988 rdf:type ex:ImportantObject>> ex:accordingTo ex:IlariaTiddi>> ex:disapprovedOfBy ex:Victor . 
+
+ahm:proxy-16987
+	a ore:Proxy ;
+	ahm:acquisitionDate "1887-10-28" {| ex:source <https://www.amsterdammuseum.nl/documents/somedoc.pdf> |};
+	ahm:acquisitionMethod ahm:t-14379 {| ex:source  <https://www.amsterdammuseum.nl/documents/somedoc.pdf> |}; 
+	ahm:creditLine ahm:t-14773 ;
+	ahm:dimension [ a ahm:Dimension ;
+			ahm:dimensionType ahm:t-17311 ;
+			ahm:dimensionUnit "gr" ;
+			ahm:dimensionValue "2.16" ;
+			rdfs:label "gewicht gr. 2.16 gr    "
+		      ] ;
+	ahm:locat [ a ahm:Locat ;
+		    ahm:currentLocation ahm:t-32567 ;
+		    ahm:currentLocationDateStart "1975-01-01" ;
+		    ahm:currentLocationLref "32567" ;
+		    rdfs:label "AHM dep 3 kast 111-4 1975-01-01   32567   "
+		  ] ;
+	ahm:material ahm:t-9091 ;
+	ahm:objectCategory ahm:t-22509 ;
+	ahm:objectName ahm:t-12532 ;
+	ahm:objectNumber "KA 10586" ;
+	ahm:priref "16987" ;
+	ahm:productionDateEnd "1604" ;
+	ahm:productionDateStart "1604" ;
+	ahm:productionPlace ahm:t-105 ;
+	ahm:reproduction [ a ahm:Reproduction ;
+			   ahm:reproductionCreator ahm:p-34137 ;
+			   ahm:reproductionDate "1999" ;
+			   ahm:reproductionIdentifierURL "..\\..\\DAT\\collectie\\images\\KA_10586.JPG" ;
+			   ahm:reproductionReference "KA_10586" ;
+			   ahm:reproductionReferenceLref "16985" ;
+			   ahm:reproductionType ahm:t-13861
+			 ] ;
+	ahm:title "1604, peerdeken"@nl ;
+	ore:proxyFor ahm:physical-16987 ;
+	ore:proxyIn ahm:aggregation-16987 .
+
+ahm:proxy-16988
+	a ore:Proxy ;
+	ahm:acquisitionDate "1887-10-28" {| ex:source <https://www.amsterdammuseum.nl/documents/someotherdoc.pdf> |};
+	ahm:acquisitionMethod ahm:t-14379 {| ex:source <https://www.amsterdammuseum.nl/documents/someotherdoc.pdf> |};
+	ahm:creditLine ahm:t-14773 ;
+	ahm:dimension [ a ahm:Dimension ;
+			ahm:dimensionType ahm:t-17311 ;
+			ahm:dimensionUnit "gr" ;
+			ahm:dimensionValue "2.18" ;
+			rdfs:label "gewicht gr. 2.18 gr    "
+		      ] ;
+	ahm:locat [ a ahm:Locat ;
+		    ahm:currentLocation ahm:t-32567 ;
+		    ahm:currentLocationDateStart "1975-01-01" ;
+		    ahm:currentLocationLref "32567" ;
+		    rdfs:label "AHM dep 3 kast 111-4 1975-01-01   32567   "
+		  ] ;
+	ahm:material ahm:t-9091 ;
+	ahm:objectCategory ahm:t-22509 ;
+	ahm:objectName ahm:t-12532 ;
+	ahm:objectNumber "KA 10587" ;
+	ahm:priref "16988" ;
+	ahm:productionDateEnd "1605" ;
+	ahm:productionDateStart "1605" ;
+	ahm:productionPlace ahm:t-105 ;
+	ahm:reproduction [ a ahm:Reproduction ;
+			   ahm:reproductionCreator ahm:p-34137 ;
+			   ahm:reproductionDate "1999" ;
+			   ahm:reproductionIdentifierURL "..\\..\\DAT\\collectie\\images\\KA_10587.JPG" ;
+			   ahm:reproductionReference "KA_10587" ;
+			   ahm:reproductionReferenceLref "16986" ;
+			   ahm:reproductionType ahm:t-13861
+			 ] ;
+	ahm:title "1605, halve schelling"@nl ;
+	ore:proxyFor ahm:physical-16988 ;
+	ore:proxyIn ahm:aggregation-16988 .
+
+ahm:proxy-16989
+	a ore:Proxy ;
+	ahm:acquisitionDate "1887-10-28" {| ex:source <https://www.amsterdammuseum.nl/documents/somedoc.pdf> |};
+	ahm:acquisitionMethod ahm:t-14379 {| ex:source <https://www.amsterdammuseum.nl/documents/somedoc.pdf> |};
+	ahm:creditLine ahm:t-14773 ;
+	ahm:dimension [ a ahm:Dimension ;
+			ahm:dimensionType ahm:t-17311 ;
+			ahm:dimensionUnit "gr" ;
+			ahm:dimensionValue "1.97" ;
+			rdfs:label "gewicht gr. 1.97 gr    "
+		      ] ;
+	ahm:locat [ a ahm:Locat ;
+		    ahm:currentLocation ahm:t-32567 ;
+		    ahm:currentLocationDateStart "1975-01-01" ;
+		    ahm:currentLocationLref "32567" ;
+		    rdfs:label "AHM dep 3 kast 111-4 1975-01-01   32567   "
+		  ] ;
+	ahm:material ahm:t-9091 ;
+	ahm:objectCategory ahm:t-22509 ;
+	ahm:objectName ahm:t-12532 ;
+	ahm:objectNumber "KA 10588" ;
+	ahm:priref "16989" ;
+	ahm:productionDateEnd "1605" ;
+	ahm:productionDateStart "1605" ;
+	ahm:productionPlace ahm:t-105 ;
+	ahm:reproduction [ a ahm:Reproduction ;
+			   ahm:reproductionCreator ahm:p-34137 ;
+			   ahm:reproductionDate "1999" ;
+			   ahm:reproductionIdentifierURL "..\\..\\DAT\\collectie\\images\\KA_10588.JPG" ;
+			   ahm:reproductionReference "KA_10588" ;
+			   ahm:reproductionReferenceLref "16987" ;
+			   ahm:reproductionType ahm:t-13861
+			 ] ;
+	ahm:title "1605, stuiver"@nl ;
+	ore:proxyFor ahm:physical-16989 ;
+	ore:proxyIn ahm:aggregation-16989 .

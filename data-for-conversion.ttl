@@ -1,0 +1,6 @@
+:man :hasSpouse :woman .
+:id1 rdf:type rdf:Statement ;
+    rdf:subject :man ;
+    rdf:predicate :hasSpouse ;
+    rdf:object :woman ;
+    :startDate "2020-02-11"^^xsd:date .

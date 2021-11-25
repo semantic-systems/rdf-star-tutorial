@@ -1,0 +1,12 @@
+@prefix : <http://example.org/> .
+
+:man :hasSpouse :woman .
+
+<<:man :hasSpouse :woman>> 
+  :startDate "2020-02-11"^^xsd:date ;
+  :certainty "0.9"^^xsd:decimal .
+
+<<:man :hasSpouse :woman>>
+  :source :TheNationalEnquirer;
+  :webpage <http://nationalenquirer.com/news/2020-02-12>;
+  :retrieved "2020-02-13"^^xsd:dateTime.
