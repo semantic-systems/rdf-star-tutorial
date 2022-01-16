@@ -1,0 +1,574 @@
+\ProvidesPackage{kg-macros}
+\RequirePackage[utf8]{inputenc}
+\RequirePackage{amsmath}
+\RequirePackage{xspace}
+\RequirePackage{xparse}
+\RequirePackage{tikz}
+\RequirePackage{tikz-qtree}
+\RequirePackage{tikz-uml}
+\RequirePackage{scalerel}
+\RequirePackage{listings}
+\RequirePackage{adjustbox}
+\RequirePackage{marvosym}
+\RequirePackage[alpine]{ifsym}
+\RequirePackage{dictsym}
+\RequirePackage{fontawesome}
+
+
+% ################################################
+% Tikz stuff
+% ################################################
+
+% Gives an invisible horizontal space to align fonts
+%\newcommand{\hsp}{\vphantom{\strut}}
+\newcommand{\hsp}{\vphantom{Ag}}
+
+% Styles for nodes and edges in graphs
+\usetikzlibrary{arrows,positioning,backgrounds,calc,decorations.pathmorphing,shapes.multipart,decorations}
+\tikzset{
+    rt/.style={
+     rectangle,
+	 rounded corners,
+	 thick,
+     top color=white, 
+     bottom color=black!15, 
+     draw=black!50!white, 
+     text centered,
+	 font=\sf\footnotesize\hsp,
+	 anchor=south,
+	 yshift=-2pt	
+	},
+    rte/.style={
+     rt,
+     top color=white, 
+     bottom color=blue!9,
+	 draw=blue!70!black,
+     text=blue
+	}, 
+    rect/.style={
+     rectangle,
+     top color=white, 
+     bottom color=red!15,
+     rounded corners,
+     draw=black, 
+	 thick,
+	 text=red!30!black,
+     dashed,
+     text centered
+	},
+    rectw/.style={
+     rectangle,
+     fill = white,
+     rounded corners,
+     draw=white, 
+     text centered
+	}, 
+    std/.style={ 
+     draw,
+     circle,
+     anchor=center,
+     inner sep=0pt,
+     minimum size=5pt
+    },
+    lab/.style={ 
+     text centered,
+     fill=white, 
+     opacity=0.98,
+     text opacity=1,
+     inner sep=0.2ex,
+     font=\sf\footnotesize\hsp
+	},
+    iri/.style={
+     draw=black!50!white, 
+     rectangle,
+     rounded corners,
+     thick,
+     text centered,
+     top color=white, 
+     bottom color=black!15, 
+     font=\sf\footnotesize\hsp
+	},
+    var/.style={
+     draw=black, 
+     rectangle,
+     rounded corners,
+     thick,
+     dashed,
+     text centered,
+     top color=white, 
+     bottom color=green!15, 
+     font=\sf\footnotesize\hsp
+	},	
+    vlab/.style={ 
+     lab,
+     text=black,
+     dashed
+	},	
+    graph/.style={
+     draw=black!50!white,
+     densely dotted, 
+     rectangle,
+     thick,
+     text centered,
+     top color=white, 
+     bottom color=black!7, 
+     font=\tt\scriptsize\hsp
+	},
+    lit/.style={
+     draw=black!50!white, 
+     rectangle,
+     thick,
+     text centered,
+     top color=white, 
+     bottom color=black!15, 
+     font=\sf\footnotesize\hsp
+	},
+	bnode/.style={
+	 iri,
+	 circle,
+	 inner sep=0.4ex
+	},
+    arrout/.style={
+     ->,
+     -latex,
+     purple,
+     thick,
+	 text=blue,
+     font=\sf\footnotesize\hsp,
+	 pos=0.45
+	},
+	block/.style={
+	 draw,  
+     rounded corners, 
+	 align=right, 
+     very thick
+	},
+    arrin/.style={
+     <-,
+     latex-,
+     purple,
+     thick,
+     text=blue,
+     font=\bf\footnotesize\hsp,
+	 pos=0.55
+	},
+	word/.style={
+	 rectangle,
+	 font=\footnotesize\hsp,
+	 inner sep=0.3ex,
+	 draw
+	},
+	split/.style={
+	 word,
+	 rectangle split,
+	 rectangle split horizontal,
+	 font=\footnotesize\hsp,
+	 rectangle split part align=base
+	},
+	task/.style={
+	 font=\sc\footnotesize\hsp,
+	},
+    arroutin/.style={
+     <->,
+     latex-latex,
+     purple,
+     thick,
+     text=blue,
+     font=\bf\footnotesize\hsp
+	},	
+	dashmed/.style={
+     -,
+     black!50, 
+     thick,
+     text=black,
+     dash pattern=on 3pt off 3pt,
+     font=\sf\footnotesize\hsp
+    },
+    expred/.style={
+     inner sep=0.3em,
+     outer sep=0
+    },
+    invisible/.style={
+	  opacity=0,
+	  text opacity=0,
+	  text=white,
+	  draw=white,
+	  bottom color=white,
+	  top color=white
+	},
+	compact/.style={
+	  inner sep=0.4ex,
+	  font=\sf\scriptsize\hsp
+	},
+	numcirc/.style={
+	  circle,
+	  draw,
+	  inner sep=0.2ex,
+	  minimum width=2ex
+	},
+	between/.style args={#1 and #2}{
+         at = ($(#1)!0.5!(#2)$)
+    },
+	intn/.style={
+     draw=black!40!orange,
+     top color=white!80!yellow, 
+     bottom color=white!95!yellow, 
+	 text=black!70!orange,
+	 double,
+	 thin
+	},
+	intne/.style={
+	 intn,
+     double=none,
+	 thick
+	},
+	inte/.style={
+     draw=black!40!orange, 
+	 text=black!70!orange,
+	 double,
+	 double distance=1pt,
+	 thin
+	},
+	intee/.style={
+     inte,
+	 double=none,
+	 thick
+	},
+	state/.style={
+	 draw=green!40!black,
+	 text=green!40!black,
+	 font=\sf\scriptsize\hsp,
+	 rectangle,
+	 rounded corners,
+	 top color=white, 
+	 bottom color=green!20,
+	 inner sep=0.3ex
+	},
+	feature/.style={
+	 draw=violet!40!black,
+	 text=violet!40!black,
+	 font=\sf\scriptsize\hsp,
+	 rectangle,
+	 rounded corners,
+	 top color=white, 
+	 bottom color=violet!20,
+	 inner sep=0.3ex
+	},
+	msg/.style={
+	 draw=blue!40!black,
+	 font=\sf\scriptsize\hsp,
+	 rectangle,
+	 text=blue!40!black,
+	 rounded corners,
+	 top color=white, 
+	 bottom color=blue!20,
+	 inner sep=0.3ex
+	},
+	faded/.style={
+	 opacity=0.5,
+	 text opacity=0.5,
+	 dotted
+	}
+}
+
+\newlength{\vgap}
+\newlength{\hgap}
+
+\newcommand{\gnode}[1]{\begin{tikzpicture}[baseline=-3pt]\node[iri,inner sep=0.4ex]{\scriptsize #1};\end{tikzpicture}}
+
+\newcommand{\bnode}[1]{\begin{tikzpicture}[baseline=-3pt]\node[bnode,inner sep=0.4ex]{\scriptsize #1};\end{tikzpicture}}
+
+\newcommand{\tnode}[1]{\begin{tikzpicture}[baseline=-3pt]\node[word,inner sep=0.4ex]{\scriptsize #1};\end{tikzpicture}}
+
+\newcommand{\ginode}[1]{\begin{tikzpicture}[baseline=-3pt]\node[iri,intn,inner sep=0.4ex]{\scriptsize #1};\end{tikzpicture}}
+
+\newcommand{\gienode}[1]{\begin{tikzpicture}[baseline=-3pt]\node[iri,intne,inner sep=0.4ex]{\scriptsize #1};\end{tikzpicture}}
+
+\newcommand{\gvar}[1]{\begin{tikzpicture}[baseline=-3pt]\node[var,inner sep=0.4ex]{\scriptsize #1};\end{tikzpicture}}
+
+\newcommand{\shap}[1]{\begin{tikzpicture}[baseline=-3pt]\node[draw,inner sep=0.4ex,font=\scshape\hsp,fill=\tikzumlStateDefaultFillColor]{\footnotesize #1};\end{tikzpicture}}
+
+\NewDocumentCommand{\sedge}{ O{arrin} O{1.3cm} m m m m }{\begin{tikzpicture}[baseline=-3pt]
+  \node[draw,inner sep=0.4ex,fill=\tikzumlStateDefaultFillColor,compact,font=\scshape\hsp\footnotesize](A){#3};
+  \node[draw,inner sep=0.4ex,fill=\tikzumlStateDefaultFillColor,compact,font=\scshape\hsp\footnotesize,right=#2 of A]{#6}
+  edge[#1] node (l) [lab,above,xshift=-1pt] {#4} node[lab,below,xshift=-1pt] {#5} (A);\end{tikzpicture}}
+
+\newcommand{\gelab}[1]{{\color{blue}\textsf{#1}}}
+
+\newcommand{\gielab}[1]{{\color{black!70!orange}\textsf{#1}}}
+
+\newcommand{\nc}[1]{\begin{tikzpicture}[baseline=-3pt]\node[numcirc]{\scriptsize #1};\end{tikzpicture}}
+
+\NewDocumentCommand{\gedge}{ O{arrin} O{1.3cm} O{iri} O{iri} m m m }{\begin{tikzpicture}[baseline=-3pt]\node[#3,compact](A){#5};
+  \node[#4,compact,right=#2 of A]{#7}
+  edge[#1] node[lab,xshift=-1pt] {#6} (A);\end{tikzpicture}}
+  
+\NewDocumentCommand{\giedge}{ O{arrin} O{1.3cm} O{iri} O{iri} m m m }{\begin{tikzpicture}[baseline=-3pt]\node[#3,intn,compact](A){#5};
+  \node[#4,intn,compact,right=#2 of A]{#7}
+  edge[#1,inte] node[lab,xshift=-1pt] {#6} (A);\end{tikzpicture}}
+
+\newcommand{\gedgenonodes}[3][1.3cm]{\begin{tikzpicture}[baseline=-3pt]\node[inner sep=0](A){};
+\node[inner sep=0,right=#1 of A]{}
+  edge[#3] node[lab,xshift=-1pt] {\scriptsize #2} (A);\end{tikzpicture}}
+  
+\NewDocumentCommand{\gloop}{ O{iri} m m }{\begin{tikzpicture}[baseline=-3pt]\node[#1,inner sep=0.4ex](A){\scriptsize #2}
+  edge[arrin,loop right] node[lab,xshift=-1pt] {\scriptsize #3} (A);\end{tikzpicture}}
+
+\NewDocumentCommand{\giloop}{ O{iri} m m }{\begin{tikzpicture}[baseline=-3pt]\node[#1,intn,inner sep=0.4ex](A){\scriptsize #2}
+  edge[arrin,inte,loop right,<-,> = latex] node[lab,xshift=-1pt] {\scriptsize #3} (A);\end{tikzpicture}}
+
+\newcommand{\dtt}[2]{\begin{tabular}{c}#1 \\ [-0.2ex] \scriptsize #2 \end{tabular}}
+\newcommand{\uri}[1]{\text{\scriptsize {\tt\vphantom{yI}#1}}}% version for use in graphs
+
+\newcommand{\urit}[1]{\text{{\tt\vphantom{yI}#1}}}% version for use in text
+
+\newcommand{\ttt}[1]{{\texttt{#1}}} % tt font in text
+
+\newcommand{\uriq}[1]{\uri{``#1''}}% version with quotes for use in graphs
+\newcommand{\uriqt}[1]{\urit{``#1''}}% version with quotes for use in text
+
+\newcommand{\dtsep}{\textasciicircum\textasciicircum}
+
+\newcommand{\aelab}[2]{\begin{tabular}{@{}c@{}}#1\\[-0.8ex]\tiny#2\end{tabular}}
+
+\newcommand{\al}[1]{
+ \color{red!30!black}
+  \vspace{1pt}
+  \centering
+   \ensuremath{\begin{aligned}
+   #1
+   \end{aligned}}
+}
+ 
+%\newcommand{\alt}[1]{
+% \color{red!30!black} 
+%   \centering
+%   \vspace{50pt}
+%   \ensuremath{\begin{aligned}
+%   #1
+%   \end{aligned}}
+%} 
+ 
+\newcommand{\vs}[1]{\ensuremath{s_\textsf{#1}}}
+\newcommand{\msg}[2]{\ensuremath{m_\textsf{#1},\textsf{#2}}}
+
+% ################################################
+% Listings
+% ################################################
+
+% left aligned fixed width
+%\newcolumntype{L}[1]{>{\raggedright\let\newline\\\arraybackslash\hspace{0pt}}m{#1}}
+% centre aligned fixed width
+%\newcolumntype{C}[1]{>{\centering\let\newline\\\arraybackslash\hspace{0pt}}m{#1}}
+% right aligned fixed width
+%\newcolumntype{R}[1]{>{\raggedleft\let\newline\\\arraybackslash\hspace{0pt}}m{#1}}	
+
+% left listing indent
+\newlength{\llin}
+\setlength{\llin}{0.8em}
+\newlength{\lrin}
+\setlength{\lrin}{0.8em}
+
+% colours
+\colorlet{cpun}{black!50} % punctuation
+\colorlet{cnum}{magenta!60!black} % numbers
+\colorlet{cdel}{black!60} % delimiters
+\colorlet{cvar}{blue!50!black} % variables
+\colorlet{ckey}{magenta!50!black} % keywords
+\colorlet{ckeyb}{blue!20!black} % keywords (second colour)
+\colorlet{ccom}{gray} % comments
+\colorlet{cstr}{brown!50!black} % strings
+\colorlet{ctxt}{black!80} % text (xml)
+\colorlet{cide}{red!40!black} % identifiers (iris)
+\colorlet{cloc}{red!40!black} % local name
+\colorlet{cpre}{red!20!black}  % prefix name
+
+\newcommand{\markup}[1]{\texttt{\color{cloc}#1}}
+\newcommand{\markupf}[1]{\markup{\footnotesize #1}}
+
+% regexes for namespaces
+\def\noprint#1{}
+\ExplSyntaxOn
+\NewDocumentCommand \namespaces { }
+{
+    \tl_set:No \l_demo_tl {\the\use:c{lst@token}}
+    \regex_replace_all:nnN { ([a-zA-Z0-9]*):([a-zA-Z0-9_\-]*) } { \c{textcolor}\cB{ cpre \cE}\cB{ \1 \cE}:\c{textcolor}\cB\{ cloc \cE\}\cB{ \2 \cE} } \l_demo_tl
+    \tl_use:N \l_demo_tl
+    \noprint
+}
+\ExplSyntaxOff
+
+% avoid colouring delimiters
+\def\beginlstdelim#1#2#3%
+{%
+    \def\endlstdelim{#2\egroup}%
+    \ttfamily#1\bgroup\color{#3}\aftergroup\endlstdelim%
+}
+
+\lstdefinestyle{lst}{
+	backgroundcolor=\color{white},
+	frame={single},
+	basewidth=0.5em, 	
+    basicstyle={\ttfamily\footnotesize},   
+    identifierstyle=\color{cide},
+    keywordstyle=\color{ckey},
+    ndkeywordstyle=\color{ckeyb},
+    stringstyle=\color{cstr}\ttfamily,
+    commentstyle=\color{ccom}\ttfamily,
+    tabsize=2,
+    showtabs=false,
+    showspaces=false,
+    showstringspaces=false,
+    extendedchars=true,
+    breaklines=true,
+	columns=fixed, % added late to make spaces fixed width
+	basewidth=0.5em, % added late to make spaces fixed width
+	postbreak=\mbox{\textcolor{red}{$\hookrightarrow$}\space},
+	xleftmargin=\llin,
+	xrightmargin=\lrin,
+	moredelim=[is][\bfseries]{~}{~},
+	escapechar=`
+}
+
+\lstdefinelanguage{xml}{ 
+	keywords={rdf,xml,rdfs,ex1},
+	%literate={á}{{\'a}}1 {é}{{\'e}}1 {í}{{\'{\i}}}1 {ó}{{\'o}}1 {ú}{{\'u}}1 {Á}{{\'A}}1 {É}{{\'E}}1 {Í}{{\'I}}1 {Ó}{{\'O}}1 {Ú}{{\'U}}1 {ü}{{\"u}}1 {Ü}{{\"U}}1 {ñ}{{\~n}}1 {Ñ}{{\~N}}1 {¿}{{?``}}1 {¡}{{!``}}1 {<}{{{\color{cdel}<}}}{1} {>}{{{\color{cdel}>}}}{1} {:}{{{\color{cdel}:}}}{1} {/}{{{\color{cdel}/}}}{1} {?}{{{\color{cdel}?}}}{1} {=}{{{\color{cdel}=}}}{1},
+	moredelim=[s][\color{ctxt}]{>}{<},
+	% moredelim=*[s][\color{cide}]{<}{>},
+    morestring=[b]",
+    morecomment=[s]{!}{>},
+	morecomment=[s]{?}{?}
+}
+
+ 
+% ################################################
+% DL macros
+% ################################################
+
+\makeatletter
+\newcommand{\superimpose}[2]{%
+  {\ooalign{\ensuremath{#1\@firstoftwo#2}\cr\hfil\ensuremath{#1\@secondoftwo#2}\hfil\cr}}}
+\makeatother
+
+\newcommand{\Arica}{\ensuremath{\text{\faAnchor}}}
+\newcommand{\Santiago}{\ensuremath{\text{\IceMountain}}}
+\newcommand{\AricaAirport}{\ensuremath{\text{\faPlane}}}
+\newcommand{\Coffee}{\ensuremath{\text{\Coffeecup}}}
+ 
+\newcommand{\inp}[1]{\ensuremath{#1^I}}
+\newcommand{\inpdom}{\inp{\Delta}}
+\newcommand{\card}{\ensuremath{\star}}
+
+%\newcommand{\symAdam}{\ManFace}
+%\newcommand{\symAdamT}{\ensuremath{\text{\large\symAdam}}}
+%\newcommand{\symAdamR}{\ensuremath{\text{\Huge\symAdam}}}
+%\newcommand{\symEve}{\WomanFace}
+%\newcommand{\symEveT}{\ensuremath{\text{\large\symEve}}}
+%\newcommand{\symEveR}{\ensuremath{\text{\Huge\symEve}}}
+%\newcommand{\symCoffee}{\Coffeecup}
+%\newcommand{\symCoffeeT}{\ensuremath{\text{\symCoffee}}}
+%\newcommand{\symCoffeeR}{\ensuremath{\text{\Huge\symCoffee}}}
+%\newcommand{\symFootball}{\Football}
+ 
+% ################################################
+% Citation macro
+% ################################################
+
+\newcommand{\citeT}[1]{\mbox{\citet{#1}}}
+\newcommand{\citeH}[1]{\mbox{{\protect\NoHyper\citeANP{#1} (\citeyearNP{#1})\protect\endNoHyper} \cite{#1}}}
+
+% ################################################
+% Notational macros: terms
+% ################################################
+
+\newcommand{\con}{\ensuremath{\mathbf{Con}}\xspace}
+\newcommand{\var}{\ensuremath{\mathbf{Var}}\xspace}
+\newcommand{\term}{\ensuremath{\mathbf{Term}}\xspace}
+\newcommand{\dom}{\ensuremath{\mathrm{dom}}\xspace}
+
+% ################################################
+% Notational macros: linear algebra
+% ################################################
+
+\def\ojoin{\setbox0=\hbox{$\Join$}%
+\rule[0.07ex]{0.2em}{.6pt}\llap{\rule[0.98ex]{0.2em}{.6pt}}}
+\def\LeftJoin{\mathbin{\ojoin\mkern-6.7mu\Join}}
+\def\SemiJoin{\rtimes}
+
+\newcommand{\vect}[1]{\ensuremath{\mathbf{#1}}}
+\newcommand{\ee}{\ensuremath{\vect{e}}}
+\newcommand{\re}{\ensuremath{\vect{r}}}
+\renewcommand{\oe}{\ensuremath{\vect{o}}}
+\newcommand{\se}{\ensuremath{\vect{s}}}
+
+\newcommand{\T}[1]{\ensuremath{#1^\mathrm{T}}}
+\newcommand{\D}[1]{\ensuremath{#1^\mathrm{D}}}
+
+% ################################################
+% Notational macros: shapes
+% ################################################
+
+\newcommand{\applySchema}[1] {\ensuremath{\sigma{}(#1)}}
+\newcommand\arc[2]{\ensuremath{\xrightarrow{#1}#2}}
+\newcommand{\datatype}[1]{\ensuremath{\Delta_{#1}}}
+\newcommand{\datatypeL}[1]{\datatype{\texttt{#1}}}
+\newcommand{\bcond}[1]{\ensuremath{\Psi_{#1}}}
+\newcommand{\false}{\ensuremath{0}}
+\newcommand{\iri}{iri}
+\newcommand{\iriKind}{\ensuremath{IRI}}
+\newcommand{\labelSet}{\ensuremath{L}}
+\newcommand{\schemaDef}{\ensuremath{\delta}}
+\newcommand{\miniShacl}{\ensuremath{\mathcal{S}}}
+\newcommand{\predSpec}{\ensuremath{p}}
+\newcommand{\pp}{\ensuremath{pp}}
+\newcommand{\qualified}[4] {\ensuremath{\arc{#1}{#2}\{#3,#4\}}}
+\newcommand{\qualifiedcard}[3] {\ensuremath{\arc{#1}{#2}~#3}}
+\newcommand{\qualifiedL}[4] {\qualified{\gelab{#1}}{#2}{#3}{#4}}
+\newcommand{\qualifiedcardL}[3] {\qualifiedcard{\gelab{#1}}{#2}{#3}}
+\newcommand{\schema}{\ensuremath{\sigma}}
+\newcommand{\semantics}[4] {\ensuremath{[#1]^{#2,#3,#4}}}
+\newcommand{\nodeSelector}[2]{\ensuremath{|[#1|]^{#2}}}
+\newcommand{\shape}{\ensuremath{\phi}}
+\newcommand{\shapeRef}[1] {\ensuremath{@#1}}
+\newcommand{\shapeRefL}[1] {\shapeRef{\shap{#1}}}
+\newcommand{\shapeTrue}{\ensuremath{\top}}
+\newcommand{\sAnd}{\ensuremath{\wedge}}
+\newcommand{\sNot}{\ensuremath{\lnot}}
+\newcommand{\unbounded}{\ensuremath{*}}
+
+\newcommand{\notAt}{\ensuremath{@\!\!\!\!/}\,}
+
+\newcommand{\true}{\ensuremath{2}}
+\newcommand{\unknown}{\ensuremath{1}}
+\newcommand{\mi}[1]{\ensuremath{\mathit{#1}}}
+
+\newcommand{\eachOf}[2]{\ensuremath{#1;#2}}
+\newcommand{\someOf}[2]{\ensuremath{#1\mid{}#2}}
+\newcommand{\tripleConstraint}[4]{\ensuremath{\qualified{#1}{#2}{#3}{#4}}}
+\newcommand{\shapes}[1]{\ensuremath{shapes^{#1}}}
+\newcommand{\props}[1]{\ensuremath{ps(#1)}}
+
+\newcommand{\lbl}{\mi{l}}
+
+% ################################################
+% Structural macros
+% ################################################
+
+\newcommand{\paragraphend}{\vspace{.5\baselineskip plus 2pt minus .2pt}\noindent}
+\newlength{\mhgap}
+\setlength{\mhgap}{0.8cm}
+\newlength{\thgap}
+\setlength{\thgap}{1cm}
+\newlength{\fhgap}
+\setlength{\fhgap}{1.4cm}
+\newlength{\sgap}
+\newlength{\mgap}
+
+% Subsection header without dot
+
+\makeatletter
+\newcommand\subsubsectionnd{\@startsection{subsubsection}{3}{\z@}%
+  {-.5\baselineskip \@plus -2\p@ \@minus -.2\p@}%
+  {-3.5\p@}%
+  {\ACM@NRadjust{\@subsubsecfont}}}
+\makeatother
