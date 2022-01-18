@@ -27,7 +27,7 @@ Below some examples of how to model complex relationships in RDF
 ```
 @prefix : <http://www.example.org/> .
 :statementId#1 { :bob :hasSpouse :alice }
-{ :statementId#1 :startDate "2020-02-11"^^xsd:date :metadata . }
+:statementId#1 :startDate "2020-02-11"^^xsd:date .
 ```
 
 #### 4. RDF-star
